@@ -6,6 +6,7 @@ import xml.etree.ElementTree as ET
 class PackageTests(unittest.TestCase):
     def test_model_contains_exact_current_sources(self):
         root = Path(__file__).resolve().parents[1]
+        self.assertNotIn(b"\r", (root / "FlashInspect.rbxmx").read_bytes())
         document = ET.parse(root / "FlashInspect.rbxmx").getroot()
         self.assertEqual(document.tag, "roblox")
         items = document.findall(".//Item")
