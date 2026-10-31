@@ -19,7 +19,8 @@ def build():
         properties(module, name, name + ".luau")
     ET.indent(root, space="  ")
     output = root_dir / "FlashInspect.rbxmx"
-    ET.ElementTree(root).write(output, encoding="utf-8", xml_declaration=True)
+    # Writing bytes avoids Windows newline conversion in the XML serializer.
+    output.write_bytes(ET.tostring(root, encoding="utf-8", xml_declaration=True))
     return output
 
 
