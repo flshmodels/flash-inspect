@@ -2,7 +2,7 @@
 
 [![Tests](https://github.com/flshmodels/flash-inspect/actions/workflows/test.yml/badge.svg)](https://github.com/flshmodels/flash-inspect/actions/workflows/test.yml)
 
-Check tagged scenery and interaction IDs in Roblox Studio. Click a result to select the object in Explorer. The plugin leaves changes to you.
+Find unanchored scenery and missing or duplicate interaction IDs in Studio. Click a result to select the object, then decide whether it needs fixing.
 
 ## What it checks
 
@@ -14,7 +14,7 @@ Check tagged scenery and interaction IDs in Roblox Studio. Click a result to sel
 
 IDs are case-sensitive: a letter first, then letters, digits, underscores or hyphens; maximum 64 ASCII characters. Interactable tags apply to the tagged object, while StaticScenery applies to descendants too. An unanchored welded part may be intentional; a finding is a prompt to review it, not proof of a bug.
 
-## Getting started
+## Setup
 
 1. Download this repository and find **FlashInspect.rbxmx**. It contains the same source as the src folder.
 2. Insert that model into a separate Studio test place using **Insert from File** in Explorer. The root is a Script named FlashInspect with three child ModuleScripts.
