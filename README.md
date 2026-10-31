@@ -2,7 +2,7 @@
 
 [![Tests](https://github.com/flshmodels/flash-inspect/actions/workflows/test.yml/badge.svg)](https://github.com/flshmodels/flash-inspect/actions/workflows/test.yml)
 
-A read-only Roblox Studio plugin that checks tagged scene objects. Click a finding to select the object in Explorer, then decide how to fix it.
+Check tagged scenery and interaction IDs in Roblox Studio. Click a result to select the object in Explorer. The plugin leaves changes to you.
 
 ## What it checks
 
@@ -14,16 +14,16 @@ A read-only Roblox Studio plugin that checks tagged scene objects. Click a findi
 
 IDs are case-sensitive: a letter first, then letters, digits, underscores or hyphens; maximum 64 ASCII characters. Interactable tags apply to the tagged object, while StaticScenery applies to descendants too. An unanchored welded part may be intentional; a finding is a prompt to review it, not proof of a bug.
 
-## Install locally
+## Getting started
 
 1. Download this repository and find **FlashInspect.rbxmx**. It contains the same source as the src folder.
 2. Insert that model into a separate Studio test place using **Insert from File** in Explorer. The root is a Script named FlashInspect with three child ModuleScripts.
 3. Select the root Script and use Studio's **Save as Local Plugin** action. Do this in edit mode, before playing the place.
 4. Remove the imported source Script from the place after saving the plugin, so it is not used as a game Script. Open **Flash Inspect → Inspect** from the Plugins toolbar.
 
-The plugin is meant for Studio, not live game servers. No HTTP access, script injection, external application or account is required. To rebuild the XML model after editing source, run `python build.py` with Python 3.11 or newer. This uses only the standard library.
+The plugin runs in Studio edit mode. To rebuild the model after editing its source, run `python build.py` with Python 3.11 or newer. No extra Python packages are needed.
 
-## Use it
+## Using the plugin
 
 Add tags and attributes with Studio's Properties or tag tools. Tag a scenery Model **StaticScenery**, or tag a door **Interactable** and give it a string attribute **InteractionId**, such as Door_Main.
 
@@ -33,14 +33,18 @@ The panel reports the object count, total findings and up to 300 clickable resul
 
 Change tag names, the attribute name or scan/display limits in `src/Config.luau`, then rebuild and save the local plugin again. The header uses the default tag names; update that text if you rename them.
 
-## What this does not do
+## Limits
 
 It does not read script source, detect exploits, find every broken reference, measure performance, or modify your place. It has no automatic fixes. IDs only have meaning if your own gameplay code uses them.
 
-## Design check and tests
+## Related tools
 
-[Roblox Tag Editor](https://github.com/tiffany352/Roblox-Tag-Editor) is an existing tool for managing CollectionService tags, and its README notes Studio's integrated tag editor. Flash Inspect complements that workflow by checking a few project conventions; it does not replace tag editing. No code was copied.
+[Roblox Tag Editor](https://github.com/tiffany352/Roblox-Tag-Editor) manages CollectionService tags. You can also use Studio's tag tools to set up the tags that Flash Inspect checks.
 
-The rules and scanner have Luau tests for inherited tags, invalid and duplicate IDs, overlapping selections and scan limits. They run in Lune with mock objects. Python tests verify that the packaged model contains the current source; CI rebuilds it and rejects stale output. Those checks do not exercise Studio's dock widget or local-plugin installation. A live Studio smoke test is still needed before calling this release fully verified.
+## Tests
+
+Luau tests cover inherited tags, invalid and duplicate IDs, overlapping selections and scan limits using mock objects in Lune. Python checks that the packaged model matches the source. GitHub Actions rebuilds the model to catch stale output and platform differences.
+
+The dock widget and local-plugin installation have not been tested in a live Studio session.
 
 MIT licensed. See [LICENSE](LICENSE).
